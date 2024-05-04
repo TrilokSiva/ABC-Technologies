@@ -1,0 +1,17 @@
+---
+- name: Build Docker Image and Deploy Container
+  hosts: 172.31.15.27
+  become: true
+  tasks:
+    - name: Pull Docker Image
+      docker_image:
+        name: triloksiva/webapps
+        source: pull
+
+    - name: Run Docker Container
+      docker_container:
+        name: my_webapp_container
+        image: triloksiva/webapps
+        state: started
+        ports:
+          - "8080:80"
